@@ -1,0 +1,16 @@
+{
+  "name": "forge-ui",
+  "private": true,
+  "version": "4.1.0",
+  "description": "DriveForge design system and UI component library",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "pnpm --filter './packages/*' build",
+    "dev": "pnpm --filter @driveforgelabs/forge-ui dev",
+    "typecheck": "pnpm --filter @driveforgelabs/forge-ui typecheck",
+    "clean": "pnpm --filter './packages/*' clean",
+    "storybook": "pnpm --filter @driveforgelabs/forge-ui storybook",
+    "build-storybook": "pnpm --filter @driveforgelabs/forge-ui build-storybook"
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>forge-ui — component demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens/tokens.css">
+  <style>
+    body {
+      background: var(--bg-base);
+      color: var(--fg-1);
+      font-family: var(--font-body);
+      padding: 48px 40px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: var(--weight-black);
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+      margin-bottom: 4px;
+    }
+
+    .page-title span { color: var(--forge); }
+
+    .page-sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--fg-3);
+      letter-spacing: var(--tracking-data);
+      margin-bottom: 56px;
+    }
+
+    .section {
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--fg-3);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .row:last-child { margin-bottom: 0; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .cluster-panel {
+      background: var(--bg-cluster);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .cluster-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      min-width: 160px;
+      padding-top: 8px;
+    }
+
+    .mono-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-3);
+      letter-spacing: 0.08em;
+      min-width: 72px;
+    }
+  </style>
+  <script type="module" src="/src/dev.ts"></script>
+</head>
+<body>
+
+  <div class="page-title">DRIVE<span>FORGE</span></div>
+  <div class="page-sub">@driveforgelabs/forge-ui — v4.1.0 · Lit web components · design system demo</div>
+
+  <!-- ── Buttons ──────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Buttons</div>
+
+    <div class="row">
+      <span class="mono-label">Primary</span>
+      <forge-button size="sm">Save tune</forge-button>
+      <forge-button>Save tune</forge-button>
+      <forge-button size="lg">Save tune</forge-button>
+      <forge-button disabled>Disabled</forge-button>
+    </div>
+
+    <div class="row">
+      <span class="mono-label">Secondary</span>
+      <forge-button variant="secondary" size="sm">Open session</forge-button>
+      <forge-button variant="secondary">Open session</forge-button>
+      <forge-button variant="secondary" size="lg">Open session</forge-button>
+    </div>
+
+    <div class="row">
+      <span class="mono-label">Ghost</span>
+      <forge-button variant="ghost" size="sm">Cancel</forge-button>
+      <forge-button variant="ghost">Cancel</forge-button>
+      <forge-button variant="ghost" size="lg">Cancel</forge-button>
+    </div>
+
+    <div class="row">
+      <span class="mono-label">Semantic</span>
+      <forge-button variant="danger">Delete map</forge-button>
+      <forge-button variant="success">● Live session</forge-button>
+    </div>
+  </div>
+
+  <!-- ── Form Inputs ──────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Form inputs</div>
+    <div class="grid-2">
+      <forge-input
+        label="Session name"
+        placeholder="Track day — Portimão R2"
+      ></forge-input>
+
+      <forge-input
+        label="Rev limiter"
+        value="7200"
+        suffix="RPM"
+        state="success"
+        hint="Within safe limits"
+      ></forge-input>
+
+      <forge-input
+        label="Fuel trim offset"
+        value="8.5"
+        prefix="±"
+        suffix="%"
+        state="error"
+        hint="Exceeds ±8% safe range"
+      ></forge-input>
+
+      <forge-select
+        id="map-profile-select"
+        label="Map profile"
+        value="stage2-street"
+      ></forge-select>
+
+      <forge-textarea
+        label="Build notes"
+        placeholder="Describe modifications, part numbers, installation notes…"
+        style="grid-column: 1 / -1;"
+      ></forge-textarea>
+    </div>
+  </div>
+
+  <!-- ── Chips & Badges ───────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Chips &amp; badges</div>
+
+    <div class="row">
+      <span class="mono-label">Status pills</span>
+      <forge-chip variant="pill" color="green" dot>Live</forge-chip>
+      <forge-chip variant="pill" color="amber" dot>Warning</forge-chip>
+      <forge-chip variant="pill" color="red" dot>Critical</forge-chip>
+      <forge-chip variant="pill" color="neutral" dot>Offline</forge-chip>
+      <forge-chip variant="pill" color="blue" dot>Logging</forge-chip>
+    </div>
+
+    <div class="row">
+      <span class="mono-label">Tag chips</span>
+      <forge-chip color="forge">Stage 2</forge-chip>
+      <forge-chip color="green">Passing</forge-chip>
+      <forge-chip color="amber">Review</forge-chip>
+      <forge-chip color="red">Knock</forge-chip>
+      <forge-chip color="blue">CAN</forge-chip>
+      <forge-chip color="neutral">Draft</forge-chip>
+      <forge-chip color="purple">Experimental</forge-chip>
+    </div>
+
+    <div class="row">
+      <span class="mono-label">Outline</span>
+      <forge-chip variant="outline" color="forge">Open-source</forge-chip>
+      <forge-chip variant="outline" color="green">↑ Active signal</forge-chip>
+      <forge-chip variant="outline" color="neutral">Archived</forge-chip>
+      <forge-chip variant="outline" color="blue">OBD-II</forge-chip>
+      <forge-chip variant="outline" color="amber">⚠ Lean</forge-chip>
+    </div>
+
+    <div class="row">
+      <span class="mono-label">Badges</span>
+      <forge-badge type="ok">OK</forge-badge>
+      <forge-badge type="warn">WARN</forge-badge>
+      <forge-badge type="crit">CRIT</forge-badge>
+      <forge-badge type="info">INFO</forge-badge>
+      <forge-badge type="forge">ACTIVE</forge-badge>
+      <forge-badge type="muted">DRAFT</forge-badge>
+    </div>
+  </div>
+
+  <!-- ── Stat Cards ───────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Stat cards</div>
+    <div class="grid-3">
+
+      <forge-stat-card
+        id="card-coolant"
+        label="Coolant temp"
+        sub="Engine block sensor"
+        value="91"
+        unit=" °C"
+        badge="WARN"
+        badge-type="warn"
+        bar="72"
+        bar-color="var(--data-amber)"
+      ></forge-stat-card>
+
+      <forge-stat-card
+        id="card-map"
+        label="Stage 2 map"
+        sub="Last flashed 2h ago"
+        badge="ACTIVE"
+        badge-type="forge"
+        state="active"
+      >
+        <div slot="inset" style="background:var(--bg-inset);border-radius:4px;padding:10px 12px;margin-top:8px;">
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--fg-3);">Base timing</div>
+          <div style="font-family:var(--font-mono);font-size:20px;color:var(--forge);font-weight:300;">+4.5°<span style="font-size:11px;color:var(--fg-3);"> advance</span></div>
+        </div>
+      </forge-stat-card>
+
+      <forge-stat-card
+        id="card-session"
+        label="Session log"
+        sub="Portimão — Turn 3"
+        value="214"
+        unit=" km/h"
+        value-color="var(--data-green)"
+        badge="LIVE"
+        badge-type="ok"
+        bar="85"
+        bar-color="var(--data-green)"
+        delta="−0.8s"
+      ></forge-stat-card>
+
+    </div>
+  </div>
+
+  <!-- ── Arc Gauges & Bar Channels ───────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Gauges — cluster display</div>
+
+    <div class="cluster-panel">
+      <forge-arc-gauge
+        value="4820"
+        max="8000"
+        color="#F04D00"
+        warn-at="0.88"
+        label="Engine Speed"
+        unit="RPM"
+        size="140"
+      ></forge-arc-gauge>
+
+      <forge-arc-gauge
+        value="147"
+        max="250"
+        color="#4A9EFF"
+        label="Vehicle Speed"
+        unit="km/h"
+        size="140"
+      ></forge-arc-gauge>
+
+      <forge-arc-gauge
+        value="91"
+        max="120"
+        color="#F5A623"
+        warn-at="0.9"
+        label="Coolant Temp"
+        unit="°C"
+        size="140"
+      ></forge-arc-gauge>
+
+      <div class="cluster-channels">
+        <forge-bar-channel label="Throttle"  value="78"    unit="%" color="#F04D00" pct="0.78"></forge-bar-channel>
+        <forge-bar-channel label="Lambda λ"  value="0.997"          color="#22D47A" pct="0.50"></forge-bar-channel>
+        <forge-bar-channel label="MAP kPa"   value="98"    unit=" kPa" color="#4A9EFF" pct="0.65"></forge-bar-channel>
+        <forge-bar-channel label="Knock"     value="0.0"   unit=" dB"  color="#22D47A" pct="0.02"></forge-bar-channel>
+        <forge-bar-channel label="Fuel"      value="31"    unit="%" color="#F5A623" pct="0.31"></forge-bar-channel>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Cards ───────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Cards</div>
+    <div class="grid-3">
+
+      <forge-card>
+        <div style="font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--fg-1);margin-bottom:6px;">Default card</div>
+        <div style="font-size:13px;color:var(--fg-3);">Background: <code style="font-family:var(--font-mono);font-size:12px;color:var(--fg-2);">--bg-surface</code></div>
+      </forge-card>
+
+      <forge-card variant="active">
+        <div style="font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--fg-1);margin-bottom:6px;">Active card</div>
+        <div style="font-size:13px;color:var(--fg-3);">Forge orange border + glow</div>
+      </forge-card>
+
+      <forge-card variant="inset">
+        <div style="font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--fg-1);margin-bottom:6px;">Inset card</div>
+        <div style="font-size:13px;color:var(--fg-3);">Sunken surface for nested data</div>
+      </forge-card>
+
+    </div>
+  </div>
+
+  <!-- ── Data — live update demo ─────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Live data — animated gauge</div>
+    <div class="cluster-panel" id="live-demo">
+      <forge-arc-gauge
+        id="live-gauge"
+        value="0"
+        max="8000"
+        color="#F04D00"
+        warn-at="0.88"
+        label="Engine Speed"
+        unit="RPM"
+        size="180"
+      ></forge-arc-gauge>
+      <div class="cluster-channels" style="gap:16px;padding-top:16px;">
+        <forge-bar-channel id="live-tps"   label="Throttle" value="0"  unit="%" color="#F04D00" pct="0"></forge-bar-channel>
+        <forge-bar-channel id="live-boost" label="Boost"    value="0"  unit=" kPa" color="#4A9EFF" pct="0"></forge-bar-channel>
+        <forge-bar-channel id="live-afr"   label="AFR"      value="14.7" color="#22D47A" pct="0.5"></forge-bar-channel>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Set object properties that can't be expressed as HTML attributes
+    customElements.whenDefined('forge-select').then(() => {
+      const sel = document.getElementById('map-profile-select');
+      if (sel) sel.options = [
+        { value: 'stage2-street', label: 'Stage 2 — Street' },
+        { value: 'stage2-track',  label: 'Stage 2 — Track' },
+        { value: 'custom',        label: 'Custom baseline' },
+      ];
+    });
+
+    customElements.whenDefined('forge-stat-card').then(() => {
+      const coolant = document.getElementById('card-coolant');
+      if (coolant) coolant.meta = [
+        { label: 'Min',   value: '68°C' },
+        { label: 'Max',   value: '105°C' },
+        { label: 'Limit', value: '110°C' },
+      ];
+
+      const map = document.getElementById('card-map');
+      if (map) map.meta = [
+        { label: 'Fueling', value: '+2.1%' },
+        { label: 'Rev lim', value: '7,200' },
+        { label: 'Map',     value: '91oct' },
+      ];
+
+      const session = document.getElementById('card-session');
+      if (session) session.meta = [
+        { label: 'Lap',  value: '4 / 12' },
+        { label: 'Best', value: '1:42.3' },
+        { label: 'Δ',    value: '−0.8s', color: 'var(--data-green)' },
+      ];
+    });
+
+    // Animate the live demo gauge
+    let t = 0;
+    function tick() {
+      t += 0.018;
+      const rpm    = Math.round(1200 + 5200 * (0.5 + 0.5 * Math.sin(t * 0.7)));
+      const tps    = Math.round(20 + 75 * (0.5 + 0.5 * Math.sin(t * 1.1)));
+      const boost  = Math.round(50 + 90 * (0.5 + 0.5 * Math.sin(t * 0.9)));
+      const afr    = (14.7 - 2 * Math.sin(t * 1.3)).toFixed(2);
+      const afrPct = (tps / 100) * 0.65 + 0.18;
+
+      const gauge = document.getElementById('live-gauge');
+      if (gauge) gauge.setAttribute('value', String(rpm));
+
+      const tpsEl = document.getElementById('live-tps');
+      if (tpsEl) { tpsEl.setAttribute('value', String(tps)); tpsEl.setAttribute('pct', String(tps / 100)); }
+
+      const boostEl = document.getElementById('live-boost');
+      if (boostEl) { boostEl.setAttribute('value', String(boost)); boostEl.setAttribute('pct', String(boost / 200)); }
+
+      const afrEl = document.getElementById('live-afr');
+      if (afrEl) { afrEl.setAttribute('value', afr); afrEl.setAttribute('pct', String(afrPct)); }
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  </script>
+
+</body>
+</html>

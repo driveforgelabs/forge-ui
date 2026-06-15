@@ -1,0 +1,72 @@
+{
+  "name": "@driveforgelabs/forge-ui",
+  "version": "4.1.0",
+  "description": "DriveForge web components — framework-agnostic Lit elements",
+  "license": "Apache-2.0",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./forge-button": "./dist/forge-button.js",
+    "./forge-input": "./dist/forge-input.js",
+    "./forge-select": "./dist/forge-select.js",
+    "./forge-textarea": "./dist/forge-textarea.js",
+    "./forge-chip": "./dist/forge-chip.js",
+    "./forge-badge": "./dist/forge-badge.js",
+    "./forge-card": "./dist/forge-card.js",
+    "./forge-stat-card": "./dist/forge-stat-card.js",
+    "./forge-arc-gauge": "./dist/forge-arc-gauge.js",
+    "./forge-bar-channel": "./dist/forge-bar-channel.js",
+    "./forge-skeleton": "./dist/forge-skeleton.js",
+    "./forge-spinner": "./dist/forge-spinner.js",
+    "./forge-tabs": "./dist/forge-tabs.js",
+    "./forge-empty-state": "./dist/forge-empty-state.js",
+    "./forge-alert": "./dist/forge-alert.js",
+    "./forge-dialog": "./dist/forge-dialog.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && vite build",
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@tanstack/table-core": "^8.21.3",
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.2.1",
+    "@lit-labs/cli": "^0.6.6",
+    "@lit-labs/gen-wrapper-react": "^0.3.5",
+    "@storybook/addon-a11y": "^10.4.3",
+    "@storybook/addon-docs": "^10.4.3",
+    "@storybook/addon-vitest": "^10.4.3",
+    "@storybook/web-components-vite": "^10.4.3",
+    "@vitest/browser-playwright": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.8",
+    "playwright": "^1.60.0",
+    "storybook": "^10.4.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vite-plugin-dts": "^5.0.2",
+    "vitest": "^4.1.8"
+  },
+  "peerDependencies": {
+    "@driveforgelabs/tokens": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@driveforgelabs/tokens": {
+      "optional": true
+    }
+  }
+}

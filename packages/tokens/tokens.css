@@ -1,0 +1,199 @@
+/* ============================================================
+   @driveforgelabs/tokens — DriveForge Design Tokens
+   CSS custom properties. Load once at the document root.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  color-scheme: light dark;
+
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --bg-base:       light-dark(#F4F4F5, #0F0F12);
+  --bg-surface:    light-dark(#FFFFFF, #1A1A1F);
+  --bg-elevated:   light-dark(rgba(9, 9, 11, 0.05), rgba(255, 255, 255, 0.05));
+  --bg-overlay:    light-dark(rgba(255, 255, 255, 0.88), rgba(15, 15, 18, 0.88));
+  --bg-inset:      light-dark(#F4F4F5, #09090B);
+  --bg-cluster:    light-dark(#E4E4E7, #08080A);
+
+  /* ── Foreground / Text ───────────────────────────────────── */
+  --fg-1:          light-dark(#09090B, #F4F4F5);
+  --fg-2:          light-dark(#52525B, #A1A1AA);
+  --fg-3:          light-dark(#71717A, #52525B);
+  --fg-4:          light-dark(#D4D4D8, #27272A);
+  --fg-inverse:    light-dark(#F4F4F5, #09090B);
+
+  /* ── Brand Accent — Forge Orange ─────────────────────────── */
+  --forge:         #F04D00;
+  --forge-light:   #FF6B2B;
+  --forge-dim:     light-dark(rgba(240, 77, 0, 0.15), #7A2700);
+  --forge-subtle:  rgba(240, 77, 0, 0.12);
+  --forge-glow:    rgba(240, 77, 0, 0.35);
+
+  /* ── Data / Status ───────────────────────────────────────── */
+  --data-green:     light-dark(#15803D, #22D47A);
+  --data-green-dim: light-dark(rgba(21, 128, 61, 0.12), rgba(34, 212, 122, 0.12));
+  --data-amber:     light-dark(#B45309, #F5A623);
+  --data-amber-dim: light-dark(rgba(180, 83, 9, 0.12), rgba(245, 166, 35, 0.12));
+  --data-red:       light-dark(#DC2626, #E53E3E);
+  --data-red-dim:   light-dark(rgba(220, 38, 38, 0.12), rgba(229, 62, 62, 0.12));
+  --data-blue:      light-dark(#2563EB, #4A9EFF);
+  --data-blue-dim:  light-dark(rgba(37, 99, 235, 0.12), rgba(74, 158, 255, 0.12));
+  --data-purple:    light-dark(#7C3AED, #A78BFA);
+  --data-purple-dim:    light-dark(rgba(124, 58, 237, 0.1), rgba(167, 139, 250, 0.12));
+  --data-purple-border: light-dark(rgba(124, 58, 237, 0.35), rgba(167, 139, 250, 0.3));
+
+  /* ── Borders & Lines ─────────────────────────────────────── */
+  --border:        light-dark(rgba(9, 9, 11, 0.08), rgba(255, 255, 255, 0.08));
+  --border-subtle: light-dark(rgba(9, 9, 11, 0.04), rgba(255, 255, 255, 0.04));
+  --border-strong: light-dark(rgba(9, 9, 11, 0.16), rgba(255, 255, 255, 0.16));
+  --border-active: light-dark(#F04D00, #F04D00);
+  --border-error:  light-dark(#DC2626, #E53E3E);
+
+  /* ── Semantic aliases ────────────────────────────────────── */
+  --color-bg:            var(--bg-base);
+  --color-surface:       var(--bg-surface);
+  --color-elevated:      var(--bg-elevated);
+  --color-primary:       var(--forge);
+  --color-primary-hover: var(--forge-light);
+  --color-text:          var(--fg-1);
+  --color-text-muted:    var(--fg-2);
+  --color-text-faint:    var(--fg-3);
+  --color-success:       var(--data-green);
+  --color-warning:       var(--data-amber);
+  --color-error:         var(--data-red);
+  --color-info:          var(--data-blue);
+
+  /* ── Typography — Families ───────────────────────────────── */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ── Typography — Semantic roles ────────────────────────── */
+  --btn-family:   var(--font-display);
+  --btn-weight:   600;
+  --btn-tracking: 0.02em;
+  --label-family:   var(--font-mono);
+  --label-size:     0.75rem;
+  --label-weight:   500;
+  --label-tracking: 0.12em;
+
+  /* ── Typography — Scale ──────────────────────────────────── */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   1.25rem;
+  --text-xl:   1.5rem;
+  --text-2xl:  2rem;
+  --text-3xl:  2.5rem;
+  --text-4xl:  3.5rem;
+  --text-5xl:  5rem;
+  --text-6xl:  7rem;
+
+  /* ── Typography — Weight ─────────────────────────────────── */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;
+
+  /* ── Typography — Line Height ────────────────────────────── */
+  --leading-none:    1;
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  /* ── Typography — Letter Spacing ────────────────────────── */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide:   0.04em;
+  --tracking-wider:  0.08em;
+  --tracking-data:   0.12em;
+
+  /* ── Spacing Scale (8px base) ────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --radius-none: 0px;
+  --radius-xs:   2px;
+  --radius-sm:   2px;
+  --radius-md:   6px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+
+  /* ── Chamfer (45° machined corner cut) ───────────────────── */
+  --chamfer-sm:  7px;
+  --chamfer-md:  12px;
+
+  /* ── Structural ─────────────────────────────────────────── */
+  --track-bg:            light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
+  --tick-major:          light-dark(rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.28));
+  --tick-minor:          light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
+  --tick-peak:           light-dark(rgba(0, 0, 0, 0.35), rgba(255, 255, 255, 0.5));
+  --gauge-redline-zone:  light-dark(rgba(220, 38, 38, 0.22), rgba(229, 62, 62, 0.35));
+  --shine-overlay:       light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.15));
+  --muted-bg:            light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.06));
+  --muted-border:        light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
+  --bg-elevated-hover:   light-dark(rgba(9, 9, 11, 0.12), #2E2E34);
+
+  /* ── Shadows / Elevation ─────────────────────────────────── */
+  --shadow-none:  none;
+  --shadow-xs:    light-dark(0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.4));
+  --shadow-sm:    light-dark(0 1px 4px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.5)), 0 0 0 1px var(--border);
+  --shadow-md:    light-dark(0 4px 16px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.6)), 0 0 0 1px var(--border);
+  --shadow-lg:    light-dark(0 8px 32px rgba(0, 0, 0, 0.12), 0 8px 32px rgba(0, 0, 0, 0.7)), 0 0 0 1px var(--border);
+  --shadow-forge: light-dark(0 0 12px var(--forge-glow), 0 0 16px var(--forge-glow));
+  --shadow-data:  light-dark(0 0 6px rgba(22, 163, 74, 0.2), 0 0 8px rgba(34, 212, 122, 0.3));
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-linear:   linear;
+
+  --duration-fast:  150ms;
+  --duration-base:  250ms;
+  --duration-slow:  400ms;
+  --duration-panel: 500ms;
+
+  /* ── Z-Index Scale ───────────────────────────────────────── */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-overlay: 100;
+  --z-modal:   200;
+  --z-toast:   300;
+  --z-tooltip: 400;
+}
+
+/* ── Base reset ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  background: var(--bg-base);
+  color: var(--fg-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: var(--weight-bold); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+h2 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--weight-bold); line-height: var(--leading-tight); }
+h3 { font-family: var(--font-body); font-size: var(--text-xl); font-weight: var(--weight-semibold); line-height: var(--leading-snug); }
+p  { font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-normal); }
+code, pre { font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-relaxed); }

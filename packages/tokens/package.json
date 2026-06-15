@@ -1,0 +1,14 @@
+{
+  "name": "@driveforgelabs/tokens",
+  "version": "4.1.0",
+  "description": "DriveForge design tokens — CSS custom properties and JSON",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./tokens.css",
+    "./tokens.css": "./tokens.css"
+  },
+  "files": ["tokens.css"]
+}

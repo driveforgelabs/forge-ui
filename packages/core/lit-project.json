@@ -1,0 +1,12 @@
+{
+  "packages": ["."],
+  "exclude": ["src/stories/**/*.ts", "src/dev.ts"],
+  "generators": [
+    {
+      "name": "react",
+      "package": "@lit-labs/gen-wrapper-react",
+      "outDir": "../react/src",
+      "exclude": ["src/stories/**/*.ts", "src/dev.ts"]
+    }
+  ]
+}
