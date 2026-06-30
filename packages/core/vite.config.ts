@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
-const components = ['index', 'forge-button', 'forge-input', 'forge-select', 'forge-textarea', 'forge-chip', 'forge-badge', 'forge-card', 'forge-stat-card', 'forge-arc-gauge', 'forge-bar-channel', 'forge-skeleton', 'forge-spinner', 'forge-tabs', 'forge-empty-state', 'forge-alert', 'forge-dialog'];
+const components = ['index', 'forge-button', 'forge-input', 'forge-select', 'forge-textarea', 'forge-chip', 'forge-badge', 'forge-card', 'forge-stat-card', 'forge-arc-gauge', 'forge-bar-channel', 'forge-skeleton', 'forge-spinner', 'forge-tabs', 'forge-empty-state', 'forge-alert', 'forge-dialog', 'forge-phone-input'];
 export default defineConfig({
   build: {
     lib: {
