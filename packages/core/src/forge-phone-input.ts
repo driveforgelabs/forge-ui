@@ -7,12 +7,8 @@ interface PhoneCountry {
   dial: string;
 }
 
-function flag(code: string): string {
-  return code
-    .toUpperCase()
-    .split('')
-    .map(c => String.fromCodePoint(0x1f1e0 + c.charCodeAt(0) - 65))
-    .join('');
+function flagUrl(code: string): string {
+  return `https://flagcdn.com/w20/${code.toLowerCase()}.png`;
 }
 
 const COUNTRIES: PhoneCountry[] = [
@@ -397,7 +393,7 @@ export class ForgePhoneInput extends LitElement {
 
     .trigger:disabled { cursor: not-allowed; opacity: 0.38; }
 
-    .trigger-flag  { font-size: 17px; line-height: 1; }
+    .trigger-flag  { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
     .trigger-dial  { font-size: 13px; color: var(--fg-2); }
     .trigger-caret {
       width: 10px; height: 6px; color: var(--fg-3); flex-shrink: 0;
@@ -492,7 +488,7 @@ export class ForgePhoneInput extends LitElement {
     .country-option:hover { background: var(--bg-elevated); }
     .country-option.selected { background: var(--forge-subtle); }
 
-    .country-flag { font-size: 18px; line-height: 1; flex-shrink: 0; }
+    .country-flag { width: 24px; height: 18px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
     .country-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .country-dial { color: var(--fg-3); font-size: 12px; font-family: var(--font-mono); flex-shrink: 0; }
 
@@ -534,7 +530,7 @@ export class ForgePhoneInput extends LitElement {
             aria-haspopup="listbox"
             aria-expanded=${this._open}
           >
-            <span class="trigger-flag">${flag(this._country.code)}</span>
+            <img class="trigger-flag" src="${flagUrl(this._country.code)}" alt="${this._country.code}" />
             <span class="trigger-dial">${this._country.dial}</span>
             <svg class="trigger-caret ${this._open ? 'open' : ''}" viewBox="0 0 10 6" fill="none">
               <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -576,7 +572,7 @@ export class ForgePhoneInput extends LitElement {
                     aria-selected=${this._country.code === c.code}
                     @click=${() => this._selectCountry(c)}
                   >
-                    <span class="country-flag">${flag(c.code)}</span>
+                    <img class="country-flag" src="${flagUrl(c.code)}" alt="${c.code}" />
                     <span class="country-name">${c.name}</span>
                     <span class="country-dial">${c.dial}</span>
                   </button>
