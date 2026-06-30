@@ -14,7 +14,7 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('forge-sparkline')
 export class ForgeSparkline extends LitElement {
   @property({ type: Array }) values: number[] = [];
-  @property() color = '#F04D00';
+  @property() color = '';
   @property({ type: Number }) width = 80;
   @property({ type: Number }) height = 28;
   @property({ type: Boolean }) fill = false;
@@ -27,6 +27,10 @@ export class ForgeSparkline extends LitElement {
       svg { display: block; overflow: visible; }
     `,
   ];
+
+  private get _color(): string {
+    return this.color || getComputedStyle(this).getPropertyValue('--forge').trim() || '#C2410C';
+  }
 
   private _computePaths() {
     const vals = this.values;
@@ -60,7 +64,7 @@ export class ForgeSparkline extends LitElement {
 
   render() {
     const paths = this._computePaths();
-    const uid = `sl-${this.color.replace(/[^a-z0-9]/gi, '')}-${this.width}`;
+    const uid = `sl-${this._color.replace(/[^a-z0-9]/gi, '')}-${this.width}`;
 
     return html`
       <svg
@@ -74,8 +78,8 @@ export class ForgeSparkline extends LitElement {
           ? svg`
               <defs>
                 <linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="${this.color}" stop-opacity="0.28"/>
-                  <stop offset="100%" stop-color="${this.color}" stop-opacity="0"/>
+                  <stop offset="0%" stop-color="${this._color}" stop-opacity="0.28"/>
+                  <stop offset="100%" stop-color="${this._color}" stop-opacity="0"/>
                 </linearGradient>
               </defs>
               ${this.fill
@@ -84,7 +88,7 @@ export class ForgeSparkline extends LitElement {
               <path
                 d="${paths.line}"
                 fill="none"
-                stroke="${this.color}"
+                stroke="${this._color}"
                 stroke-width="${this.strokeWidth}"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -95,7 +99,7 @@ export class ForgeSparkline extends LitElement {
                       cx="${paths.last.x}"
                       cy="${paths.last.y}"
                       r="${this.strokeWidth * 2}"
-                      fill="${this.color}"
+                      fill="${this._color}"
                     />
                   `
                 : svg``}

@@ -1,12 +1,15 @@
 {
   "name": "@driveforgelabs/forge-ui",
-  "version": "4.1.0",
+  "version": "4.1.5",
   "description": "DriveForge web components — framework-agnostic Lit elements",
   "license": "Apache-2.0",
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -30,7 +33,8 @@
     "./forge-tabs": "./dist/forge-tabs.js",
     "./forge-empty-state": "./dist/forge-empty-state.js",
     "./forge-alert": "./dist/forge-alert.js",
-    "./forge-dialog": "./dist/forge-dialog.js"
+    "./forge-dialog": "./dist/forge-dialog.js",
+    "./forge-phone-input": "./dist/forge-phone-input.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && vite build",

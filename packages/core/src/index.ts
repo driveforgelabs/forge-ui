@@ -60,4 +60,5 @@ export * from './forge-empty-state.js';
 export * from './forge-avatar.js';
 export * from './forge-command-palette.js';
 export * from './forge-date-range-picker.js';
+export * from './forge-phone-input.js';
 

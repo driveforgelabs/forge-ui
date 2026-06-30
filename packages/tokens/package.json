@@ -1,6 +1,6 @@
 {
   "name": "@driveforgelabs/tokens",
-  "version": "4.1.0",
+  "version": "4.1.4",
   "description": "DriveForge design tokens — CSS custom properties and JSON",
   "license": "Apache-2.0",
   "publishConfig": {

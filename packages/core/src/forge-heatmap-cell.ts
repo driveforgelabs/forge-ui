@@ -18,7 +18,7 @@ import { customElement, property } from 'lit/decorators.js';
 export class ForgeHeatmapCell extends LitElement {
   @property({ type: Number }) value = 0;
   @property({ attribute: 'low-color' }) lowColor = 'rgba(0,0,0,0)';
-  @property({ attribute: 'high-color' }) highColor = '#F04D00';
+  @property({ attribute: 'high-color' }) highColor = '';
   @property({ type: Number }) size = 16;
   @property({ type: Number }) radius = 2;
   @property() label = '';
@@ -38,11 +38,15 @@ export class ForgeHeatmapCell extends LitElement {
     `,
   ];
 
+  private get _highColor(): string {
+    return this.highColor || getComputedStyle(this).getPropertyValue('--forge').trim() || '#C2410C';
+  }
+
   private _interpolate(): string {
     const v = Math.min(Math.max(this.value, 0), 1);
     const low = this._parseColor(this.lowColor);
-    const high = this._parseColor(this.highColor);
-    if (!low || !high) return this.highColor;
+    const high = this._parseColor(this._highColor);
+    if (!low || !high) return this._highColor;
     const r = Math.round(low[0] + (high[0] - low[0]) * v);
     const g = Math.round(low[1] + (high[1] - low[1]) * v);
     const b = Math.round(low[2] + (high[2] - low[2]) * v);

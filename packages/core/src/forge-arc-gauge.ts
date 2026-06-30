@@ -33,7 +33,7 @@ export class ForgeArcGauge extends LitElement {
   @property({ type: Number }) size = 132;
 
   private static readonly TONES: Record<string, string> = {
-    forge: 'var(--forge, #F04D00)',
+    forge: 'var(--forge, #C2410C)',
     green: 'var(--data-green, #22D47A)',
     amber: 'var(--data-amber, #F5A623)',
     blue:  'var(--data-blue, #4A9EFF)',
@@ -151,7 +151,7 @@ export class ForgeArcGauge extends LitElement {
           fill="var(--fg-1, #F4F4F5)"
           font-size=${fontSize}
           font-weight="300"
-          font-family="var(--font-mono, 'JetBrains Mono', monospace)"
+          font-family="var(--font-mono, 'IBM Plex Mono', monospace)"
         >${readout}</text>
         ${this.unit ? svg`
           <text
@@ -159,7 +159,7 @@ export class ForgeArcGauge extends LitElement {
             fill="var(--fg-3, #52525B)"
             font-size="9"
             letter-spacing="1"
-            font-family="var(--font-mono, 'JetBrains Mono', monospace)"
+            font-family="var(--font-mono, 'IBM Plex Mono', monospace)"
           >${this.unit}</text>
         ` : nothing}
       </svg>

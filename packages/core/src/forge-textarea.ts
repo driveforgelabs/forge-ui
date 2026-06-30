@@ -52,6 +52,7 @@ export class ForgeTextarea extends LitElement {
       }
 
       textarea {
+        box-sizing: border-box;
         width: 100%;
         font-family: var(--font-body);
         font-size: 14px;
@@ -109,9 +110,10 @@ export class ForgeTextarea extends LitElement {
           placeholder="${this.placeholder}"
           ?disabled="${this.disabled}"
           style="resize: ${this.resize};"
+          .value="${this.value}"
           @input="${this._onInput}"
           @change="${this._onChange}"
-        >${this.value}</textarea>
+        ></textarea>
         ${this.hint ? html`<span class="hint" part="hint" role="${this.state === 'error' ? 'alert' : 'status'}">${this.hint}</span>` : nothing}
       </div>
     `;

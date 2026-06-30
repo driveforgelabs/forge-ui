@@ -3,7 +3,7 @@
    CSS custom properties. Load once at the document root.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
   color-scheme: light dark;
@@ -23,12 +23,12 @@
   --fg-4:          light-dark(#D4D4D8, #27272A);
   --fg-inverse:    light-dark(#F4F4F5, #09090B);
 
-  /* ── Brand Accent — Forge Orange ─────────────────────────── */
-  --forge:         #F04D00;
-  --forge-light:   #FF6B2B;
-  --forge-dim:     light-dark(rgba(240, 77, 0, 0.15), #7A2700);
-  --forge-subtle:  rgba(240, 77, 0, 0.12);
-  --forge-glow:    rgba(240, 77, 0, 0.35);
+  /* ── Brand Accent — Forge Orange (mode-adaptive) ─────────── */
+  --forge:         light-dark(#C2410C, #F97316);
+  --forge-light:   light-dark(#EA580C, #FB923C);
+  --forge-dim:     light-dark(rgba(194, 65, 12, 0.12), rgba(249, 115, 22, 0.18));
+  --forge-subtle:  light-dark(rgba(194, 65, 12, 0.07), rgba(249, 115, 22, 0.12));
+  --forge-glow:    light-dark(rgba(194, 65, 12, 0.28), rgba(249, 115, 22, 0.32));
 
   /* ── Data / Status ───────────────────────────────────────── */
   --data-green:     light-dark(#15803D, #22D47A);
@@ -47,7 +47,7 @@
   --border:        light-dark(rgba(9, 9, 11, 0.08), rgba(255, 255, 255, 0.08));
   --border-subtle: light-dark(rgba(9, 9, 11, 0.04), rgba(255, 255, 255, 0.04));
   --border-strong: light-dark(rgba(9, 9, 11, 0.16), rgba(255, 255, 255, 0.16));
-  --border-active: light-dark(#F04D00, #F04D00);
+  --border-active: var(--forge);
   --border-error:  light-dark(#DC2626, #E53E3E);
 
   /* ── Semantic aliases ────────────────────────────────────── */
@@ -65,18 +65,50 @@
   --color-info:          var(--data-blue);
 
   /* ── Typography — Families ───────────────────────────────── */
-  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  --font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
-  --font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-display: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'JetBrains Mono', 'Consolas', monospace;
 
-  /* ── Typography — Semantic roles ────────────────────────── */
-  --btn-family:   var(--font-display);
-  --btn-weight:   600;
-  --btn-tracking: 0.02em;
+  /* ── Typography — Semantic roles ─────────────────────────── */
+  --h1-family:   var(--font-display);
+  --h1-size:     var(--text-3xl);
+  --h1-weight:   var(--weight-semibold);
+  --h1-leading:  var(--leading-tight);
+  --h1-tracking: var(--tracking-tight);
+
+  --h2-family:   var(--font-display);
+  --h2-size:     var(--text-2xl);
+  --h2-weight:   var(--weight-semibold);
+  --h2-leading:  var(--leading-tight);
+
+  --h3-family:   var(--font-body);
+  --h3-size:     var(--text-xl);
+  --h3-weight:   var(--weight-semibold);
+  --h3-leading:  var(--leading-snug);
+
+  --body-family:  var(--font-body);
+  --body-size:    var(--text-base);
+  --body-weight:  var(--weight-regular);
+  --body-leading: var(--leading-normal);
+
   --label-family:   var(--font-mono);
   --label-size:     0.75rem;
-  --label-weight:   500;
-  --label-tracking: 0.12em;
+  --label-weight:   var(--weight-medium);
+  --label-tracking: var(--tracking-data);
+
+  --btn-family:   var(--font-body);
+  --btn-weight:   var(--weight-semibold);
+  --btn-tracking: var(--tracking-normal);
+
+  --code-family:  var(--font-mono);
+  --code-size:    var(--text-sm);
+  --code-weight:  var(--weight-regular);
+  --code-leading: var(--leading-relaxed);
+
+  --cluster-number-family:  var(--font-mono);
+  --cluster-number-size:    var(--text-6xl);
+  --cluster-number-weight:  var(--weight-light);
+  --cluster-number-leading: var(--leading-none);
 
   /* ── Typography — Scale ──────────────────────────────────── */
   --text-xs:   0.75rem;
@@ -128,16 +160,16 @@
   /* ── Border Radius ───────────────────────────────────────── */
   --radius-none: 0px;
   --radius-xs:   2px;
-  --radius-sm:   2px;
-  --radius-md:   6px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
   --radius-lg:   16px;
   --radius-full: 9999px;
 
   /* ── Chamfer (45° machined corner cut) ───────────────────── */
-  --chamfer-sm:  7px;
-  --chamfer-md:  12px;
+  --chamfer-sm:  6px;
+  --chamfer-md:  10px;
 
-  /* ── Structural ─────────────────────────────────────────── */
+  /* ── Structural (gauges, tracks, ticks — light/dark aware) ── */
   --track-bg:            light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
   --tick-major:          light-dark(rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.28));
   --tick-minor:          light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
@@ -154,8 +186,8 @@
   --shadow-sm:    light-dark(0 1px 4px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.5)), 0 0 0 1px var(--border);
   --shadow-md:    light-dark(0 4px 16px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.6)), 0 0 0 1px var(--border);
   --shadow-lg:    light-dark(0 8px 32px rgba(0, 0, 0, 0.12), 0 8px 32px rgba(0, 0, 0, 0.7)), 0 0 0 1px var(--border);
-  --shadow-forge: light-dark(0 0 12px var(--forge-glow), 0 0 16px var(--forge-glow));
-  --shadow-data:  light-dark(0 0 6px rgba(22, 163, 74, 0.2), 0 0 8px rgba(34, 212, 122, 0.3));
+  --shadow-forge: 0 0 0 3px var(--forge-glow);
+  --shadow-data:  light-dark(0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.4));
 
   /* ── Transitions ─────────────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -192,8 +224,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1 { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: var(--weight-bold); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
-h2 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--weight-bold); line-height: var(--leading-tight); }
-h3 { font-family: var(--font-body); font-size: var(--text-xl); font-weight: var(--weight-semibold); line-height: var(--leading-snug); }
-p  { font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-normal); }
-code, pre { font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+h1 { font-family: var(--h1-family); font-size: var(--h1-size); font-weight: var(--h1-weight); line-height: var(--h1-leading); letter-spacing: var(--h1-tracking); }
+h2 { font-family: var(--h2-family); font-size: var(--h2-size); font-weight: var(--h2-weight); line-height: var(--h2-leading); }
+h3 { font-family: var(--h3-family); font-size: var(--h3-size); font-weight: var(--h3-weight); line-height: var(--h3-leading); }
+p  { font-family: var(--body-family); font-size: var(--body-size); line-height: var(--body-leading); }
+code, pre { font-family: var(--font-mono); font-size: var(--code-size); line-height: var(--code-leading); }

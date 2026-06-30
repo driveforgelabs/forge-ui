@@ -12,7 +12,7 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('forge-color-swatch')
 export class ForgeColorSwatch extends LitElement {
   @property({ type: Array }) colors: string[] = [
-    '#F04D00', '#22D47A', '#F5A623', '#E53E3E', '#4A9EFF', '#A78BFA',
+    '#C2410C', '#22D47A', '#F5A623', '#E53E3E', '#4A9EFF', '#A78BFA',
   ];
   @property({ reflect: true }) value = '';
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';

@@ -77,8 +77,8 @@ export class ForgeStatCard extends LitElement {
         right: 0;
         width: 0;
         height: 0;
-        border-top: var(--chamfer-md, 12px) solid var(--forge);
-        border-left: var(--chamfer-md, 12px) solid transparent;
+        border-top: var(--chamfer-md, 10px) solid var(--forge);
+        border-left: var(--chamfer-md, 10px) solid transparent;
         pointer-events: none;
       }
 

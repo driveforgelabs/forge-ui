@@ -48,9 +48,9 @@ export class ForgeButton extends LitElement {
         align-items: center;
         justify-content: center;
         gap: 8px;
-        font-family: var(--btn-family, var(--font-display));
+        font-family: var(--btn-family, var(--font-body));
         font-weight: var(--btn-weight, 600);
-        letter-spacing: var(--btn-tracking, 0.02em);
+        letter-spacing: var(--btn-tracking, 0em);
         border-radius: var(--radius-sm);
         cursor: pointer;
         transition:
@@ -87,7 +87,7 @@ export class ForgeButton extends LitElement {
         background: var(--forge);
         color: #fff;
         border-color: transparent;
-        clip-path: polygon(0 0, calc(100% - var(--chamfer-sm, 7px)) 0, 100% var(--chamfer-sm, 7px), 100% 100%, 0 100%);
+        clip-path: polygon(0 0, calc(100% - var(--chamfer-sm, 6px)) 0, 100% var(--chamfer-sm, 6px), 100% 100%, 0 100%);
         border-radius: var(--radius-sm) 0 var(--radius-sm) var(--radius-sm);
       }
       :host([variant='primary']) button:hover { background: var(--forge-light); }

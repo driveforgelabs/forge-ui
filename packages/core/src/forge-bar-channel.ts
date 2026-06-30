@@ -19,7 +19,7 @@ export class ForgeBarChannel extends LitElement {
   @property({ type: Number }) pct = -1;
   @property({ type: Number }) peak = -1;
   @property() unit = '';
-  @property() color = '#F04D00';
+  @property() color = 'var(--forge)';
 
   static styles = [
     css`
