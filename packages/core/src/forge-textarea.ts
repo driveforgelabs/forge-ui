@@ -15,8 +15,8 @@ export type TextareaState = 'default' | 'success' | 'error';
  * @attr disabled
  * @attr resize     none | vertical | horizontal | both   (default: vertical)
  *
- * @fires forge-input  {value: string}
- * @fires forge-change {value: string}
+ * @fires forge-input  {CustomEvent<{value: string}>}
+ * @fires forge-change {CustomEvent<{value: string}>}
  */
 @customElement('forge-textarea')
 export class ForgeTextarea extends LitElement {

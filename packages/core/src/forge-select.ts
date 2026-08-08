@@ -20,7 +20,7 @@ export interface SelectOption {
  * @attr placeholder
  * @prop options    Array<{value, label, disabled?}>
  *
- * @fires forge-change {value: string}
+ * @fires forge-change {CustomEvent<{value: string}>}
  */
 @customElement('forge-select')
 export class ForgeSelect extends LitElement {

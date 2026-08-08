@@ -3,12 +3,26 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readdirSync } from 'node:fs';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
-const components = ['index', 'forge-button', 'forge-input', 'forge-select', 'forge-textarea', 'forge-chip', 'forge-badge', 'forge-card', 'forge-stat-card', 'forge-arc-gauge', 'forge-bar-channel', 'forge-skeleton', 'forge-spinner', 'forge-tabs', 'forge-empty-state', 'forge-alert', 'forge-dialog', 'forge-phone-input'];
+// Every `forge-*.ts` component gets its own build entry automatically, so a
+// new component file is buildable/importable as soon as it's added — no
+// separate list to remember to update.
+const components = [
+  'index',
+  'ssr',
+  ...readdirSync(resolve(dirname, 'src'))
+    .filter((f) => f.startsWith('forge-') && f.endsWith('.ts'))
+    .map((f) => f.replace(/\.ts$/, '')),
+];
 export default defineConfig({
   build: {
+    // The build script runs `tsc` (declarations) before `vite build` (JS)
+    // into the same dist/ — Vite's default emptyOutDir would otherwise wipe
+    // out the .d.ts files tsc just wrote.
+    emptyOutDir: false,
     lib: {
       entry: components.reduce<Record<string, string>>((acc, name) => {
         acc[name] = resolve(dirname, `src/${name}.ts`);
@@ -17,7 +31,12 @@ export default defineConfig({
       formats: ['es']
     },
     rollupOptions: {
-      external: ['lit', /^lit\//],
+      // `@lit-labs/ssr*` is a Node-only runtime dependency of the `ssr`
+      // entry (it pulls in `node:module`/`node:fs` and a dynamic
+      // capability-probe import that trips up bundler static analysis) —
+      // it must stay a real `import` resolved from `node_modules`, not get
+      // bundled into the browser-facing output.
+      external: ['lit', /^lit\//, /^@lit-labs\/ssr/],
       output: {
         preserveModules: false
       }
@@ -49,6 +68,13 @@ export default defineConfig({
             browser: 'chromium'
           }]
         }
+      }
+    }, {
+      extends: true,
+      test: {
+        name: 'node',
+        environment: 'node',
+        include: ['src/**/*.node.test.ts']
       }
     }]
   }

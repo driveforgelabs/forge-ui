@@ -41,3 +41,6 @@ Desktop.ini
 
 # TypeScript
 *.tsbuildinfo
+
+# Codegen scratch output
+packages/react/.gen-tmp/

@@ -8,7 +8,7 @@ import { customElement, property } from 'lit/decorators.js';
  * @attr y        number, clientY coordinate
  *
  * @slot default  list of action items/links
- * @fires forge-select  {item: HTMLElement}
+ * @fires forge-select  {CustomEvent<{item: HTMLElement}>}
  */
 @customElement('forge-context-menu')
 export class ForgeContextMenu extends LitElement {

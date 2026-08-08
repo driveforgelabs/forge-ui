@@ -3,5 +3,5 @@
   "compilerOptions": {
     "emitDeclarationOnly": true
   },
-  "exclude": ["src/dev.ts"]
+  "exclude": ["src/dev.ts", "src/**/*.test.ts", "src/**/*.test.tsx"]
 }

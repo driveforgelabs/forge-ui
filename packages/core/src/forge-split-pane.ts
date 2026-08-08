@@ -11,7 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
  * @slot primary             content for the first/top panel
  * @slot secondary           content for the second/bottom panel
  *
- * @fires forge-split-change {split: number}
+ * @fires forge-split-change {CustomEvent<{split: number}>}
  */
 @customElement('forge-split-pane')
 export class ForgeSplitPane extends LitElement {

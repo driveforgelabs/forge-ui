@@ -2,6 +2,11 @@ import { LitElement, html, css, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 export type BannerVariant = 'info' | 'warning' | 'error' | 'success';
 
+/**
+ * `forge-banner` — Dismissible inline banner message.
+ *
+ * @fires forge-dismiss  Fired when the banner's dismiss control is activated
+ */
 @customElement('forge-banner')
 export class ForgeBanner extends LitElement {
   @property({ reflect: true }) variant: BannerVariant = 'info';

@@ -1,18 +1,38 @@
 import { LitElement, html, css, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import {
-  createTable,
-  getCoreRowModel,
-  getSortedRowModel,
-  getPaginationRowModel,
-  getFilteredRowModel,
-  type ColumnDef,
+  constructTable,
+  tableFeatures,
+  rowSortingFeature,
+  createSortedRowModel,
+  rowPaginationFeature,
+  createPaginatedRowModel,
+  columnFilteringFeature,
+  globalFilteringFeature,
+  createFilteredRowModel,
+  columnSizingFeature,
+  type ColumnDef as TSColumnDef,
+  type RowData,
   type SortingState,
   type PaginationState,
+  type Table,
   type TableOptions,
-  type TableOptionsResolved,
 } from '@tanstack/table-core';
-export type { ColumnDef };
+import { storeReactivityBindings } from '@tanstack/table-core/store-reactivity-bindings';
+
+const features = tableFeatures({
+  coreReactivityFeature: storeReactivityBindings(),
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  rowPaginationFeature,
+  paginatedRowModel: createPaginatedRowModel(),
+  columnFilteringFeature,
+  globalFilteringFeature,
+  filteredRowModel: createFilteredRowModel(),
+  columnSizingFeature,
+});
+
+export type ColumnDef<TData extends RowData = Record<string, unknown>> = TSColumnDef<typeof features, TData>;
 
 /**
  * `forge-table` — Sortable, paginated data table powered by TanStack Table Core.
@@ -30,7 +50,7 @@ export type { ColumnDef };
  * @fires forge-row-click  detail: { row, index }
  */
 @customElement('forge-table')
-export class ForgeTable<TData = Record<string, unknown>> extends LitElement {
+export class ForgeTable<TData extends RowData = Record<string, unknown>> extends LitElement {
   @property({ type: Array }) columns: ColumnDef<TData>[] = [];
   @property({ type: Array }) data: TData[] = [];
   @property({ type: Boolean }) sortable = true;
@@ -188,29 +208,14 @@ export class ForgeTable<TData = Record<string, unknown>> extends LitElement {
   private _buildTable() {
     this._pagination = { ...this._pagination, pageSize: this.pageSize };
 
-    const opts: TableOptions<TData> = {
+    const opts: TableOptions<typeof features, TData> = {
+      features,
       data: this.data,
       columns: this.columns,
       state: {
         sorting: this._sorting,
         pagination: this._pagination,
         globalFilter: this._globalFilter,
-        columnPinning: {},
-        columnSizing: {},
-        columnSizingInfo: {
-          startOffset: null,
-          startSize: null,
-          deltaOffset: null,
-          deltaPercentage: null,
-          isResizingColumn: false,
-          columnSizingStart: [],
-        },
-        columnVisibility: {},
-        columnOrder: [],
-        grouping: [],
-        expanded: {},
-        rowPinning: {},
-        rowSelection: {},
       },
       onSortingChange: (updater) => {
         this._sorting = typeof updater === 'function' ? updater(this._sorting) : updater;
@@ -228,16 +233,12 @@ export class ForgeTable<TData = Record<string, unknown>> extends LitElement {
         );
       },
       onGlobalFilterChange: (v) => { this._globalFilter = v; },
-      getCoreRowModel: getCoreRowModel(),
-      getSortedRowModel: this.sortable ? getSortedRowModel() : undefined,
-      getPaginationRowModel: this.paginate ? getPaginationRowModel() : undefined,
-      getFilteredRowModel: getFilteredRowModel(),
-      onStateChange: () => {},
-      manualPagination: false,
-      manualSorting: false,
+      enableSorting: this.sortable,
+      manualSorting: !this.sortable,
+      manualPagination: !this.paginate,
     };
 
-    return createTable(opts as TableOptionsResolved<TData>);
+    return constructTable(opts);
   }
 
   render() {
@@ -296,10 +297,10 @@ export class ForgeTable<TData = Record<string, unknown>> extends LitElement {
                       @click="${() => this._rowClick(row.original, i)}"
                       part="tr"
                     >
-                      ${row.getVisibleCells().map(cell => html`
+                      ${row.getAllCells().map(cell => html`
                         <td part="td">
                           ${cell.column.columnDef.cell
-                            ? (cell.column.columnDef.cell as (ctx: unknown) => unknown)({ getValue: () => cell.getValue(), row: cell.row })
+                            ? (cell.column.columnDef.cell as (ctx: unknown) => unknown)(cell.getContext())
                             : cell.getValue() as unknown ?? ''}
                         </td>
                       `)}
@@ -320,8 +321,8 @@ export class ForgeTable<TData = Record<string, unknown>> extends LitElement {
     `;
   }
 
-  private _renderPagination(table: ReturnType<typeof createTable<TData>>) {
-    const pi = table.getState().pagination.pageIndex;
+  private _renderPagination(table: Table<typeof features, TData>) {
+    const pi = this._pagination.pageIndex;
     const count = table.getPageCount();
     const canPrev = table.getCanPreviousPage();
     const canNext = table.getCanNextPage();

@@ -9,7 +9,7 @@ import { customElement, property } from 'lit/decorators.js';
  * @attr step      number
  * @attr disabled  boolean
  *
- * @fires forge-change  {value: number}
+ * @fires forge-change  {CustomEvent<{value: number}>}
  */
 @customElement('forge-number-input')
 export class ForgeNumberInput extends LitElement {

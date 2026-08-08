@@ -1,5 +1,10 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+/**
+ * `forge-dropdown-menu` — Anchored dropdown menu.
+ *
+ * @fires forge-select  detail: { item: HTMLElement }
+ */
 @customElement('forge-dropdown-menu')
 export class ForgeDropdownMenu extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;

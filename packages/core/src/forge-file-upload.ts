@@ -8,7 +8,7 @@ import { customElement, property, state } from 'lit/decorators.js';
  * @attr disabled   boolean
  *
  * @slot default    instructional text/icons
- * @fires forge-file-select  {files: File[]}
+ * @fires forge-file-select  {CustomEvent<{files: File[]}>}
  */
 @customElement('forge-file-upload')
 export class ForgeFileUpload extends LitElement {

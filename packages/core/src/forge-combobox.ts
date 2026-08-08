@@ -6,6 +6,11 @@ export interface ComboboxOption {
   disabled?: boolean;
 }
 
+/**
+ * `forge-combobox` — Searchable single-select combobox.
+ *
+ * @fires forge-change  detail: { value: string }
+ */
 @customElement('forge-combobox')
 export class ForgeCombobox extends LitElement {
   @property({ reflect: true }) value = '';

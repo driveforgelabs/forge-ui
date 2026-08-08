@@ -3,6 +3,11 @@ import { customElement, property, query } from 'lit/decorators.js';
 export type DrawerPosition = 'left' | 'right';
 export type DrawerSize = 'sm' | 'md' | 'lg';
 
+/**
+ * `forge-drawer` — Slide-in side panel with backdrop.
+ *
+ * @fires forge-close  Fired when the drawer requests closing (Escape, backdrop, close button)
+ */
 @customElement('forge-drawer')
 export class ForgeDrawer extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;

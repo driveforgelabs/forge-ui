@@ -3,14 +3,18 @@
   "private": true,
   "version": "4.1.0",
   "description": "DriveForge design system and UI component library",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "pnpm --filter './packages/*' build",
+    "generate": "pnpm --filter @driveforgelabs/forge-ui-react generate",
     "dev": "pnpm --filter @driveforgelabs/forge-ui dev",
-    "typecheck": "pnpm --filter @driveforgelabs/forge-ui typecheck",
+    "typecheck": "pnpm --filter './packages/*' typecheck",
     "clean": "pnpm --filter './packages/*' clean",
     "storybook": "pnpm --filter @driveforgelabs/forge-ui storybook",
-    "build-storybook": "pnpm --filter @driveforgelabs/forge-ui build-storybook"
+    "build-storybook": "pnpm --filter @driveforgelabs/forge-ui build-storybook",
+    "test": "pnpm --filter './packages/*' test"
   },
   "license": "Apache-2.0"
 }

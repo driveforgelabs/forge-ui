@@ -261,8 +261,8 @@ function parsePhone(value: string): { country: PhoneCountry; number: string } {
  * @attr disabled
  * @attr required
  *
- * @fires forge-input  {value: string}
- * @fires forge-change {value: string}
+ * @fires forge-input  {CustomEvent<{value: string}>}
+ * @fires forge-change {CustomEvent<{value: string}>}
  */
 @customElement('forge-phone-input')
 export class ForgePhoneInput extends LitElement {

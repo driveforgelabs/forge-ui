@@ -9,7 +9,7 @@ import './forge-chip.js';
  * @attr placeholder  string
  * @attr disabled     boolean
  *
- * @fires forge-change  {tags: string[]}
+ * @fires forge-change  {CustomEvent<{tags: string[]}>}
  */
 @customElement('forge-tag-input')
 export class ForgeTagInput extends LitElement {

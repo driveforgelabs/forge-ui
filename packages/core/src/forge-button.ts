@@ -23,11 +23,14 @@ export class ForgeButton extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
   @property() type: 'button' | 'submit' | 'reset' = 'button';
 
-  private _internals: ElementInternals;
+  // Undefined in the SSR DOM shim, which doesn't implement attachInternals().
+  private _internals?: ElementInternals;
 
   constructor() {
     super();
-    this._internals = this.attachInternals();
+    if (typeof this.attachInternals === 'function') {
+      this._internals = this.attachInternals();
+    }
   }
 
   static styles = [
@@ -45,6 +48,8 @@ export class ForgeButton extends LitElement {
 
       button {
         display: inline-flex;
+        width: 100%;
+        box-sizing: border-box;
         align-items: center;
         justify-content: center;
         gap: 8px;
@@ -155,9 +160,9 @@ export class ForgeButton extends LitElement {
       new CustomEvent('forge-click', { bubbles: true, composed: true, detail: { originalEvent: e } })
     );
     if (this.type === 'submit') {
-      this._internals.form?.requestSubmit();
+      this._internals?.form?.requestSubmit();
     } else if (this.type === 'reset') {
-      this._internals.form?.reset();
+      this._internals?.form?.reset();
     }
   }
 }

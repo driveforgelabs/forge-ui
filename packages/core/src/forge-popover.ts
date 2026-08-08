@@ -8,7 +8,7 @@ import { customElement, property } from 'lit/decorators.js';
  *
  * @slot trigger  element that triggers the popover
  * @slot default  interactive content inside (e.g. forms/buttons)
- * @fires forge-open-change  {open: boolean}
+ * @fires forge-open-change  {CustomEvent<{open: boolean}>}
  */
 @customElement('forge-popover')
 export class ForgePopover extends LitElement {

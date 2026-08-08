@@ -17,8 +17,8 @@ export type InputState = 'default' | 'success' | 'error';
  * @attr disabled
  * @attr required
  *
- * @fires forge-input  {value: string}
- * @fires forge-change {value: string}
+ * @fires forge-input  {CustomEvent<{value: string}>}
+ * @fires forge-change {CustomEvent<{value: string}>}
  */
 @customElement('forge-input')
 export class ForgeInput extends LitElement {
