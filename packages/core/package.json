@@ -4,6 +4,11 @@
   "description": "DriveForge web components — framework-agnostic Lit elements",
   "license": "Apache-2.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/driveforgelabs/forge-ui",
+    "directory": "packages/core"
+  },
   "publishConfig": {
     "access": "public"
   },
