@@ -1,0 +1,120 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g. 5.0.0)"
+        required: true
+        type: string
+      dry_run:
+        description: "Dry run: pack and publish with --dry-run, nothing is uploaded"
+        required: true
+        type: boolean
+        default: true
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Check and publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing and provenance
+    env:
+      # Set the NPM_TOKEN secret to publish with a token; without it the job uses npm trusted publishing (OIDC).
+      HAS_NPM_TOKEN: ${{ secrets.NPM_TOKEN != '' }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Resolve version
+        id: resolve
+        env:
+          EVENT: ${{ github.event_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            VERSION="${INPUT_VERSION#v}"
+            DRY_RUN="$INPUT_DRY_RUN"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"
+            DRY_RUN="false"
+          fi
+          if ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            echo "Not a semver version: '$VERSION'" >&2
+            exit 1
+          fi
+          # Pre-releases go to the "next" dist-tag so they never become `latest`.
+          case "$VERSION" in *-*) TAG=next ;; *) TAG=latest ;; esac
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "dry_run=$DRY_RUN" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build shadcn registry
+        run: pnpm registry:build
+
+      - name: Set package version
+        run: npm version "${{ steps.resolve.outputs.version }}" --no-git-tag-version --allow-same-version
+
+      - name: Check package contents
+        run: |
+          npm pack --dry-run --ignore-scripts --json > "$RUNNER_TEMP/pack.json"
+          node -e "
+            const files = require(process.env.RUNNER_TEMP + '/pack.json')[0].files.map((f) => f.path)
+            for (const need of ['public/r/registry.json', 'public/r/clay-theme.json', 'src/styles/clay.css']) {
+              if (!files.includes(need)) { console.error('missing from package:', need); process.exit(1) }
+            }
+            const extra = files.filter((f) => f.startsWith('src/components') || f.startsWith('e2e') || f.startsWith('node_modules'))
+            if (extra.length) { console.error('unexpected files in package:', extra); process.exit(1) }
+            console.log(files.length + ' files in package')
+          "
+
+      - name: Publish (dry run)
+        if: steps.resolve.outputs.dry_run == 'true'
+        run: pnpm publish --dry-run --no-git-checks --access public --tag "${{ steps.resolve.outputs.tag }}"
+
+      - name: Publish with token
+        if: steps.resolve.outputs.dry_run != 'true' && env.HAS_NPM_TOKEN == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --no-git-checks --access public --provenance --tag "${{ steps.resolve.outputs.tag }}"
+
+      - name: Publish with trusted publishing
+        if: steps.resolve.outputs.dry_run != 'true' && env.HAS_NPM_TOKEN != 'true'
+        run: pnpm publish --no-git-checks --access public --provenance --tag "${{ steps.resolve.outputs.tag }}"
+
+      - name: Summary
+        run: |
+          {
+            echo "### @driveforgelabs/ui ${{ steps.resolve.outputs.version }}"
+            echo "- dry run: ${{ steps.resolve.outputs.dry_run }}, dist-tag: ${{ steps.resolve.outputs.tag }}"
+            echo "- npm: https://www.npmjs.com/package/@driveforgelabs/ui/v/${{ steps.resolve.outputs.version }}"
+            echo "- registry URL: \`https://cdn.jsdelivr.net/npm/@driveforgelabs/ui@${{ steps.resolve.outputs.version }}/public/r/{name}.json\`"
+          } >> "$GITHUB_STEP_SUMMARY"

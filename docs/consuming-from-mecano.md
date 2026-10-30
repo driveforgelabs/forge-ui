@@ -4,9 +4,15 @@ Target: TanStack Start, React 19, `src/styles.css` with `@import "tailwindcss"`.
 
 Tested here: `shadcn add @clay/stat-card @clay/clay-theme` against the built registry in a bare scratch project (installs components, npm deps, theme CSS). The TanStack Start provider/toggle code below follows the shadcn TanStack Start dark-mode docs but was **not run inside Mecano**.
 
-## 0. Where the registry is served from (open decision)
+## 0. Where the registry is served from
 
-This library is private and is never published to npm. The composed items (StatusBadge, StatCard, ...) and the theme are distributed as registry JSON built by `pnpm registry:build` into `public/r/`. Something has to serve that folder over HTTP. Until that is decided, in this guide `REGISTRY_URL` is a placeholder. For local trials, run `pnpm dev` and use `http://localhost:5173/r/{name}.json`.
+The composed items (StatusBadge, StatCard, ...) and the theme are distributed as registry JSON. Two ways to get them:
+
+- **Published package (preferred, once a version is published).** `@driveforgelabs/ui` on npm contains only the registry JSON (`public/r/`) and `clay.css`. npm packages are served by public CDNs, so the registry URL is
+  `https://cdn.jsdelivr.net/npm/@driveforgelabs/ui@5/public/r/{name}.json` (pin a full version such as `@5.0.0` for reproducible installs; `@5` follows the latest 5.x with some CDN caching).
+- **Local, for development or before the first publish.** In the library repo run `pnpm install && pnpm registry:build && pnpm dev`; the registry is then at `http://localhost:5173/r/{name}.json`. The server must stay running while you add components.
+
+In the rest of this guide `REGISTRY_URL` stands for the part before `/{name}.json`, for example `https://cdn.jsdelivr.net/npm/@driveforgelabs/ui@5/public/r`.
 
 ## 1. Initialise shadcn in `apps/web`
 
@@ -27,7 +33,7 @@ Settings (they cannot be changed later without reinstalling components):
 | `iconLibrary`           | `lucide`                                                                                                                                                        |
 | aliases                 | `@/components`, `@/components/ui`, `@/lib`, `@/lib/utils`, `@/hooks` (make sure `tsconfig` has `"paths": {"@/*": ["./src/*"]}` and the Vite config resolves it) |
 
-Recent CLIs offer presets (Nova, Vega, ...) at the prompt. Those pick a different style; the `@driveforgelabs/ui` showcase was generated with `components.json` set to `new-york` + `stone`, so match that file (`components.json`). If the CLI forces a preset, edit `components.json` to those two values before the first `shadcn add`.
+Recent CLIs offer presets (Nova, Vega, ...) at the prompt. Those pick a different style; this library's `components.json` is set to `new-york` + `stone`, so match that file (`components.json`). If the CLI forces a preset, edit `components.json` to those two values before the first `shadcn add`.
 
 Init adds `cn` (npm package; `src/lib/utils.ts` is `export { cn } from "cn"`), `class-variance-authority`, `radix-ui`, `lucide-react`, `tw-animate-css`, `shadcn`. Do not hand-edit `lib/utils.ts`.
 
@@ -82,7 +88,7 @@ pnpm dlx shadcn@latest add button input textarea select label form card badge al
 | ----------------------------------------- | ------------------------------- | ------------------------------------------- | -------------------------- |
 | Theme                                     | `add @clay/clay-theme`          |                                             |                            |
 | StatusBadge                               | `add @clay/status-badge`        | `badge`, clay-theme                         |                            |
-| Spinner                                   | `add @clay/spinner`             |                                             |                            |
+| Spinner                                   | `add spinner` (stock)           |                                             |                            |
 | EmptyState                                | `add @clay/empty-state`         |                                             |                            |
 | Sparkline                                 | `add @clay/sparkline`           | `chart`                                     | `recharts`                 |
 | StatCard                                  | `add @clay/stat-card`           | `card`, `progress`, status-badge, sparkline |                            |
@@ -154,7 +160,7 @@ function ThemedToaster() {
 }
 ```
 
-Why not `next-themes`: it renders a `<script>` inside a React component, and React 19 logs "Encountered a script tag while rendering React component" (seen in the showcase before it was replaced).
+Why not `next-themes`: it renders a `<script>` inside a React component, and React 19 logs "Encountered a script tag while rendering React component".
 
 Toggle (a `DropdownMenu` per the shadcn dark-mode docs):
 
@@ -210,7 +216,7 @@ Full details and the remaining 34 components are in `component-parity.md`.
 | ForgeCard       | `Card*`                                                                           | `card`               |
 | ForgeBadge      | `StatusBadge`                                                                     | `@clay/status-badge` |
 | ForgeAlert      | `Alert*`                                                                          | `alert`              |
-| ForgeSpinner    | `Spinner`                                                                         | `@clay/spinner`      |
+| ForgeSpinner    | `Spinner`                                                                         | `spinner` (stock)    |
 | ForgeDialog     | `Dialog*`                                                                         | `dialog`             |
 | ForgeSelect     | `Select*`                                                                         | `select`             |
 | ForgeStatCard   | `StatCard`                                                                        | `@clay/stat-card`    |

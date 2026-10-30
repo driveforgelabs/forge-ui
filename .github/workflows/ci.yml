@@ -47,6 +47,19 @@ jobs:
       - name: Build shadcn registry
         run: pnpm registry:build
 
+      - name: Package contents
+        run: |
+          npm pack --dry-run --ignore-scripts --json > "$RUNNER_TEMP/pack.json"
+          node -e "
+            const files = require(process.env.RUNNER_TEMP + '/pack.json')[0].files.map((f) => f.path)
+            for (const need of ['public/r/registry.json', 'public/r/clay-theme.json', 'src/styles/clay.css']) {
+              if (!files.includes(need)) { console.error('missing from package:', need); process.exit(1) }
+            }
+            const extra = files.filter((f) => f.startsWith('src/components') || f.startsWith('e2e') || f.startsWith('node_modules'))
+            if (extra.length) { console.error('unexpected files in package:', extra); process.exit(1) }
+            console.log(files.length + ' files in package')
+          "
+
       - name: Registry is up to date
         run: git diff --exit-code registry.json
 

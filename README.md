@@ -1,6 +1,6 @@
 # @driveforgelabs/ui
 
-A stock [shadcn/ui](https://ui.shadcn.com) component library (new-york style, stone base, Radix) with the Clay theme, plus composed components, a showcase app and a shadcn registry. Private: it is consumed through the registry, never published to npm.
+A stock [shadcn/ui](https://ui.shadcn.com) component library (new-york style, stone base, Radix) with the Clay theme, plus composed components, a showcase app and a shadcn registry. It is consumed through the shadcn CLI: the npm package `@driveforgelabs/ui` ships only the registry JSON and the theme CSS, which public CDNs can serve as a registry.
 
 The earlier Lit web components (`forge-ui`), their React wrappers (`forge-ui-react`) and the design tokens (`tokens`) were removed from this repo. They remain in git history and the last published versions stay on npm.
 
@@ -37,6 +37,16 @@ Node 22.18+ (it runs `scripts/*.ts` directly) and pnpm 11 are required (`package
 ## CI
 
 `.github/workflows/ci.yml` runs on pushes to `main` and on pull requests: lint, typecheck, Playwright tests, registry build, a check that `registry.json` is committed up to date, and an upload of `public/r` as the `shadcn-registry` artifact. Nothing is published or deployed.
+
+## Releasing and publishing
+
+Versions follow the repository's tags (the 4.x line was the old web components; this library continues from 5.0.0). `package.json` keeps `0.0.0` as a placeholder: the version is set from the release tag at publish time.
+
+- **Release:** create a GitHub release with a `vX.Y.Z` tag. Publishing the release triggers `.github/workflows/publish.yml`, which runs lint, typecheck and the registry build, checks the package contents and publishes `@driveforgelabs/ui` to npm (pre-release versions go to the `next` dist-tag).
+- **Dry run:** run the workflow manually (Actions, "Publish to npm", "Run workflow") with a version and `dry_run` left on. Nothing is uploaded.
+- **Manual publish:** run it manually with `dry_run` off.
+- **npm auth:** the workflow uses npm trusted publishing (OIDC, with provenance) unless an `NPM_TOKEN` repository secret exists, in which case it publishes with the token. Before the first publish, either add the secret or configure `@driveforgelabs/ui` on npmjs.com to trust this repository's `publish.yml`.
+- **Locally:** `pnpm publish --dry-run --no-git-checks` shows exactly what would be published.
 
 ## Docs
 
