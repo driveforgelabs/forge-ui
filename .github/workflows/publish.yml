@@ -16,7 +16,8 @@ on:
         default: true
 
 concurrency:
-  group: publish
+  # Bumped from "publish" to "publish-2" to escape a run stuck queued in the old group (2026-10-30).
+  group: publish-2
   cancel-in-progress: false
 
 jobs:
