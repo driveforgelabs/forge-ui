@@ -1,6 +1,6 @@
 {
   "name": "@driveforgelabs/ui",
-  "version": "0.0.0",
+  "version": "5.0.0",
   "description": "Clay theme and shadcn registry for DriveForge UIs: stock shadcn/ui components plus composed components, installed with the shadcn CLI",
   "license": "Apache-2.0",
   "repository": {
