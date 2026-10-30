@@ -1,0 +1,128 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!src/components/ui",
+      "!src/lib",
+      "!src/hooks",
+      "!**/*.css",
+      "!**/pnpm-lock.yaml",
+      "!index.html",
+      "!.tsbuild",
+      "!dist",
+      "!public/r",
+      "!test-results",
+      "!playwright-report",
+      "!node_modules",
+      "!docs/shadcn-clay-migration-prompt.md",
+      "!registry.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "a11y": {
+        "noPositiveTabindex": "error",
+        "noAutofocus": "error",
+        "useAnchorContent": "error",
+        "useKeyWithClickEvents": "error",
+        "useValidAnchor": "error"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "error",
+        "useLiteralKeys": "off",
+        "noUselessStringConcat": "error",
+        "useDateNow": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noUnusedFunctionParameters": "error",
+        "noUnusedPrivateClassMembers": "error",
+        "useExhaustiveDependencies": "error",
+        "noUndeclaredVariables": "error",
+        "noProcessGlobal": "error",
+        "noUnresolvedImports": "off",
+        "noInvalidUseBeforeDeclaration": "error",
+        "useJsxKeyInIterable": "error",
+        "noNestedComponentDefinitions": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noAwaitInLoops": "error",
+        "noDelete": "error",
+        "noBarrelFile": "error",
+        "noReExportAll": "error"
+      },
+      "style": {
+        "noNonNullAssertion": "error",
+        "noParameterAssign": "error",
+        "noNestedTernary": "error",
+        "useConst": "error",
+        "useImportType": "error",
+        "useExportType": "error",
+        "noUselessElse": "error",
+        "useShorthandAssign": "error",
+        "useNodejsImportProtocol": "error",
+        "useTemplate": "error",
+        "noInferrableTypes": "error",
+        "noYodaExpression": "error",
+        "useThrowNewError": "error",
+        "useThrowOnlyError": "error",
+        "useExplicitLengthCheck": "error",
+        "useCollapsedElseIf": "error",
+        "useDefaultSwitchClause": "error",
+        "useAtIndex": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useSelfClosingElements": "error",
+        "useFragmentSyntax": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noEvolvingTypes": "error",
+        "noImplicitAnyLet": "error",
+        "noConsole": "error",
+        "noEmptyBlockStatements": "error",
+        "noMisplacedAssertion": "error",
+        "noFocusedTests": "error",
+        "noSkippedTests": "error",
+        "useAwait": "error",
+        "noLeakedRender": "error",
+        "noBitwiseOperators": "error",
+        "noConstantBinaryExpressions": "error",
+        "useGuardForIn": "error",
+        "noDuplicateTestHooks": "error",
+        "noVar": "error",
+        "noReactSpecificProps": "off"
+      }
+    }
+  }
+}

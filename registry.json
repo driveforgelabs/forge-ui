@@ -1,0 +1,491 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "clay",
+  "homepage": "https://github.com/driveforgelabs/forge-ui",
+  "items": [
+    {
+      "name": "clay-theme",
+      "type": "registry:theme",
+      "title": "Clay theme",
+      "description": "Clay light/dark tokens for shadcn (baseColor stone), plus success, warning and info colors and Geist fonts.",
+      "cssVars": {
+        "theme": {
+          "color-success": "var(--success)",
+          "color-success-foreground": "var(--success-foreground)",
+          "color-warning": "var(--warning)",
+          "color-warning-foreground": "var(--warning-foreground)",
+          "color-info": "var(--info)",
+          "color-info-foreground": "var(--info-foreground)",
+          "font-sans": "\"Geist Variable\", ui-sans-serif, system-ui, sans-serif",
+          "font-mono": "\"Geist Mono Variable\", ui-monospace, monospace"
+        },
+        "light": {
+          "background": "oklch(0.973 0.003 85)",
+          "foreground": "oklch(0.207 0.008 67)",
+          "card": "oklch(1 0 0)",
+          "card-foreground": "var(--foreground)",
+          "popover": "oklch(1 0 0)",
+          "popover-foreground": "var(--foreground)",
+          "primary": "oklch(0.541 0.15 41)",
+          "primary-foreground": "oklch(1 0 0)",
+          "secondary": "oklch(0.953 0.005 78)",
+          "secondary-foreground": "var(--foreground)",
+          "muted": "oklch(0.953 0.005 78)",
+          "muted-foreground": "oklch(0.45 0.012 68)",
+          "accent": "oklch(0.953 0.005 78)",
+          "accent-foreground": "var(--foreground)",
+          "destructive": "oklch(0.545 0.172 30)",
+          "border": "oklch(0.207 0.008 67 / 9%)",
+          "input": "oklch(0.207 0.008 67 / 17%)",
+          "ring": "oklch(0.541 0.15 41)",
+          "sidebar": "var(--card)",
+          "sidebar-foreground": "var(--foreground)",
+          "sidebar-primary": "var(--primary)",
+          "sidebar-primary-foreground": "var(--primary-foreground)",
+          "sidebar-accent": "var(--secondary)",
+          "sidebar-accent-foreground": "var(--foreground)",
+          "sidebar-border": "var(--border)",
+          "sidebar-ring": "var(--ring)",
+          "chart-1": "var(--primary)",
+          "chart-2": "var(--info)",
+          "chart-3": "var(--success)",
+          "chart-4": "var(--warning)",
+          "chart-5": "oklch(0.562 0.013 72)",
+          "success": "oklch(0.529 0.117 157)",
+          "success-foreground": "oklch(1 0 0)",
+          "warning": "oklch(0.569 0.122 68)",
+          "warning-foreground": "oklch(1 0 0)",
+          "info": "oklch(0.553 0.164 259)",
+          "info-foreground": "oklch(1 0 0)"
+        },
+        "dark": {
+          "background": "oklch(0.178 0.003 68)",
+          "foreground": "oklch(0.95 0.006 75)",
+          "card": "oklch(0.215 0.005 68)",
+          "popover": "oklch(0.215 0.005 68)",
+          "primary": "oklch(0.712 0.143 49)",
+          "primary-foreground": "oklch(0.185 0.006 56)",
+          "secondary": "oklch(0.251 0.005 39)",
+          "muted": "oklch(0.251 0.005 39)",
+          "accent": "oklch(0.251 0.005 39)",
+          "muted-foreground": "oklch(0.713 0.014 71)",
+          "destructive": "oklch(0.699 0.153 28)",
+          "border": "oklch(1 0 0 / 8%)",
+          "input": "oklch(1 0 0 / 15%)",
+          "ring": "oklch(0.712 0.143 49)",
+          "sidebar": "var(--card)",
+          "sidebar-foreground": "var(--foreground)",
+          "sidebar-primary": "var(--primary)",
+          "sidebar-primary-foreground": "var(--primary-foreground)",
+          "sidebar-accent": "var(--secondary)",
+          "sidebar-accent-foreground": "var(--foreground)",
+          "sidebar-border": "var(--border)",
+          "sidebar-ring": "var(--ring)",
+          "chart-1": "var(--primary)",
+          "chart-2": "var(--info)",
+          "chart-3": "var(--success)",
+          "chart-4": "var(--warning)",
+          "chart-5": "oklch(0.57 0.015 71)",
+          "success": "oklch(0.735 0.136 159)",
+          "success-foreground": "oklch(0.178 0.003 68)",
+          "warning": "oklch(0.786 0.131 83)",
+          "warning-foreground": "oklch(0.178 0.003 68)",
+          "info": "oklch(0.707 0.129 257)",
+          "info-foreground": "oklch(0.178 0.003 68)"
+        }
+      }
+    },
+    {
+      "name": "status-badge",
+      "type": "registry:component",
+      "title": "Status badge",
+      "description": "Soft tint plus dot badge: success, warning, info, destructive, accent, muted.",
+      "files": [
+        {
+          "path": "src/components/status-badge.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "badge",
+        "@clay/clay-theme"
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:component",
+      "title": "Empty state",
+      "description": "Icon, title, description and action placeholder for empty views.",
+      "files": [
+        {
+          "path": "src/components/empty-state.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:component",
+      "title": "Sparkline",
+      "description": "Minimal Recharts area chart without axes.",
+      "files": [
+        {
+          "path": "src/components/sparkline.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "chart"
+      ]
+    },
+    {
+      "name": "stat-card",
+      "type": "registry:component",
+      "title": "Stat card",
+      "description": "Label, value, optional status badge, progress bar and sparkline.",
+      "files": [
+        {
+          "path": "src/components/stat-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "card",
+        "progress",
+        "@clay/status-badge",
+        "@clay/sparkline"
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:component",
+      "title": "Combobox",
+      "description": "Searchable select built from Popover and Command.",
+      "files": [
+        {
+          "path": "src/components/combobox.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "button",
+        "command",
+        "popover"
+      ]
+    },
+    {
+      "name": "tag-input",
+      "type": "registry:component",
+      "title": "Tag input",
+      "description": "Free-form tag entry (Enter or comma adds, Backspace removes).",
+      "files": [
+        {
+          "path": "src/components/tag-input.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "badge"
+      ]
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:component",
+      "title": "Phone input",
+      "description": "International phone input with country picker, styled with shadcn Input.",
+      "files": [
+        {
+          "path": "src/components/phone-input.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "react-phone-number-input"
+      ],
+      "registryDependencies": [
+        "button",
+        "command",
+        "input",
+        "popover"
+      ]
+    },
+    {
+      "name": "theme-provider",
+      "type": "registry:component",
+      "title": "Theme provider",
+      "description": "Light/dark/system provider with a no-flash init script, SSR-safe (initial state matches server).",
+      "files": [
+        {
+          "path": "src/components/theme-provider.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner",
+      "description": "Alert with info, success, warning and destructive tones, an action and a dismiss button.",
+      "files": [
+        {
+          "path": "src/components/banner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "alert",
+        "button"
+      ]
+    },
+    {
+      "name": "confirm-dialog",
+      "type": "registry:component",
+      "title": "Confirm dialog",
+      "description": "Alert-dialog wrapper for irreversible actions.",
+      "files": [
+        {
+          "path": "src/components/confirm-dialog.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:component",
+      "title": "Date picker",
+      "description": "DatePicker and DateRangePicker (Popover + Calendar).",
+      "files": [
+        {
+          "path": "src/components/date-picker.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover"
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:component",
+      "title": "File upload",
+      "description": "Drag-and-drop zone with size limits and a removable file list.",
+      "files": [
+        {
+          "path": "src/components/file-upload.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "button"
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:component",
+      "title": "Number input",
+      "description": "Decimal input with select-on-focus, clamping, arrow keys and optional stepper.",
+      "files": [
+        {
+          "path": "src/components/number-input.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "button",
+        "input"
+      ]
+    },
+    {
+      "name": "data-list",
+      "type": "registry:component",
+      "title": "Data list",
+      "description": "Label / value description list.",
+      "files": [
+        {
+          "path": "src/components/data-list.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:component",
+      "title": "Timeline",
+      "description": "Vertical event list with status tones.",
+      "files": [
+        {
+          "path": "src/components/timeline.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:component",
+      "title": "Stepper",
+      "description": "Horizontal step indicator with optional jump-to-step buttons.",
+      "files": [
+        {
+          "path": "src/components/stepper.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "color-swatches",
+      "type": "registry:component",
+      "title": "Color swatches",
+      "description": "Single-choice color picker built on ToggleGroup.",
+      "files": [
+        {
+          "path": "src/components/color-swatches.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "toggle-group"
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:component",
+      "title": "Command palette",
+      "description": "Ctrl/Cmd+K launcher in a command dialog.",
+      "files": [
+        {
+          "path": "src/components/command-palette.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "command"
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:component",
+      "title": "Data table",
+      "description": "Sortable, paginated table on TanStack Table v8 with loading and empty states.",
+      "files": [
+        {
+          "path": "src/components/data-table.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "@tanstack/react-table@^9.3.1"
+      ],
+      "registryDependencies": [
+        "button",
+        "skeleton",
+        "table"
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:component",
+      "title": "Password input",
+      "description": "Password field with a show/hide toggle.",
+      "files": [
+        {
+          "path": "src/components/password-input.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "input-group",
+        "button"
+      ]
+    },
+    {
+      "name": "search-input",
+      "type": "registry:component",
+      "title": "Search input",
+      "description": "Search field with icon, clear button and Escape to clear.",
+      "files": [
+        {
+          "path": "src/components/search-input.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "input-group",
+        "button"
+      ]
+    },
+    {
+      "name": "mode-toggle",
+      "type": "registry:component",
+      "title": "Mode toggle",
+      "description": "Light / dark / system menu.",
+      "files": [
+        {
+          "path": "src/components/mode-toggle.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "@clay/theme-provider"
+      ]
+    },
+    {
+      "name": "gauge",
+      "type": "registry:component",
+      "title": "Gauge",
+      "description": "Semicircular SVG meter with redline.",
+      "files": [
+        {
+          "path": "src/components/gauge.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bar-channel",
+      "type": "registry:component",
+      "title": "Bar channel",
+      "description": "Labelled bar with peak marker.",
+      "files": [
+        {
+          "path": "src/components/bar-channel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heat-cell",
+      "type": "registry:component",
+      "title": "Heat cell",
+      "description": "Heat-map cell with intensity scaling.",
+      "files": [
+        {
+          "path": "src/components/heat-cell.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-ticker",
+      "type": "registry:component",
+      "title": "Number ticker",
+      "description": "Animated counter that respects reduced motion.",
+      "files": [
+        {
+          "path": "src/components/number-ticker.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

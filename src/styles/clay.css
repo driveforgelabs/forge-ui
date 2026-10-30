@@ -1,0 +1,97 @@
+/*
+ * Clay theme for shadcn/ui.
+ *
+ * Import AFTER the stock shadcn variables (:root / .dark from `shadcn init`, baseColor stone),
+ * it only overrides the Clay tokens and adds success / warning / info.
+ * Light is the default; the .dark class on <html> switches to dark.
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.973 0.003 85);
+  --foreground: oklch(0.207 0.008 67);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.541 0.15 41);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.953 0.005 78);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.953 0.005 78);
+  --muted-foreground: oklch(0.45 0.012 68);
+  --accent: oklch(0.953 0.005 78);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.545 0.172 30);
+  --border: oklch(0.207 0.008 67 / 9%);
+  --input: oklch(0.207 0.008 67 / 17%);
+  --ring: oklch(0.541 0.15 41);
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  --chart-1: var(--primary);
+  --chart-2: var(--info);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: oklch(0.562 0.013 72);
+  --success: oklch(0.529 0.117 157);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.569 0.122 68);
+  --warning-foreground: oklch(1 0 0);
+  --info: oklch(0.553 0.164 259);
+  --info-foreground: oklch(1 0 0);
+}
+
+.dark {
+  --background: oklch(0.178 0.003 68);
+  --foreground: oklch(0.95 0.006 75);
+  --card: oklch(0.215 0.005 68);
+  --popover: oklch(0.215 0.005 68);
+  --primary: oklch(0.712 0.143 49);
+  --primary-foreground: oklch(0.185 0.006 56);
+  --secondary: oklch(0.251 0.005 39);
+  --muted: oklch(0.251 0.005 39);
+  --accent: oklch(0.251 0.005 39);
+  --muted-foreground: oklch(0.713 0.014 71);
+  --destructive: oklch(0.699 0.153 28);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.712 0.143 49);
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  /* chart-1..4 reference the semantic tokens, as in light, so they follow the dark values. */
+  --chart-1: var(--primary);
+  --chart-2: var(--info);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: oklch(0.57 0.015 71);
+  --success: oklch(0.735 0.136 159);
+  --success-foreground: oklch(0.178 0.003 68);
+  --warning: oklch(0.786 0.131 83);
+  --warning-foreground: oklch(0.178 0.003 68);
+  --info: oklch(0.707 0.129 257);
+  --info-foreground: oklch(0.178 0.003 68);
+}
+
+@theme inline {
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+}

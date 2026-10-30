@@ -1,85 +1,44 @@
-# forge-ui
+# @driveforgelabs/ui
 
-DriveForge design system and UI component library.
+A stock [shadcn/ui](https://ui.shadcn.com) component library (new-york style, stone base, Radix) with the Clay theme, plus composed components, a showcase app and a shadcn registry. Private: it is consumed through the registry, never published to npm.
 
-Framework-agnostic by design. Core components are built on web standards (Custom Elements / Web Components) so they work in any environment — vanilla JS, React, Vue, Svelte, or server-rendered HTML. Framework-specific wrappers are provided as opt-in packages.
+The earlier Lit web components (`forge-ui`), their React wrappers (`forge-ui-react`) and the design tokens (`tokens`) were removed from this repo. They remain in git history and the last published versions stay on npm.
 
-## What it does
+## What's in it
 
-- Ships the DriveForge design tokens (color, spacing, typography, motion)
-- Provides a web component library that runs anywhere
-- Renders server-side with Declarative Shadow DOM (see [SSR](#ssr)) so components have real content on first paint instead of relying on client JS
-- Offers thin framework wrappers (`@driveforgelabs/forge-ui-react`; Vue wrapper not yet built) for convenience
-- Powers all DriveForge web surfaces including docs and community tooling
+- `src/components/ui/`: stock shadcn components, added through the CLI and never edited. To update one, run `pnpm dlx shadcn@latest add <name> --overwrite`.
+- `src/components/`: composed components (`StatCard`, `StatusBadge`, `DataTable`, `DatePicker`, `PhoneInput`, `Combobox`, ...). `registry.json` lists every installable item.
+- `src/styles/clay.css`: the Clay theme. It is the only source of the theme: `pnpm registry:build` copies it into the `clay-theme` registry item.
+- `src/showcase/`: the showcase app (light, dark and system themes), including a full example page, `service-form`.
+- `e2e/`: Playwright tests that run against the production build.
 
-## Packages
+## Commands
 
-| Package | Description |
-|---|---|
-| `@driveforgelabs/tokens` | Design tokens (CSS custom properties + JSON) |
-| `@driveforgelabs/forge-ui` | Web Components — framework-agnostic |
-| `@driveforgelabs/forge-ui-react` | React wrappers, built on `@lit/react`'s `createComponent` |
-
-Every component in `packages/core/src` is buildable and individually importable — e.g. `@driveforgelabs/forge-ui/forge-button` — the package's `exports` map is generated from the component list, so a new `forge-*.ts` file is importable as soon as it's added.
-
-## SSR
-
-### Vanilla / framework-agnostic
-
-Server-rendering entry point at `@driveforgelabs/forge-ui/ssr`:
-
-```ts
-import { renderToString, html } from '@driveforgelabs/forge-ui/ssr';
-import '@driveforgelabs/forge-ui/forge-button';
-
-const markup = await renderToString(html`<forge-button variant="primary">Save</forge-button>`);
-// e.g. in a Next.js Server Component:
-// <div dangerouslySetInnerHTML={{ __html: markup }} />
+```bash
+pnpm install
+pnpm dev             # showcase at http://localhost:5173
+pnpm lint            # Biome: lint rules, formatting and import order
+pnpm format          # apply Biome's fixes
+pnpm typecheck       # tsc -b, three projects (see below)
+pnpm build
+pnpm test            # Playwright, against `vite build` + `vite preview`
+pnpm registry:build  # regenerates registry.json's theme and writes public/r/ (gitignored)
 ```
 
-This renders to an HTML string using Declarative Shadow DOM, so the element has real, styled content in the server response rather than an empty custom-element tag waiting on client JS.
+Node 22.18+ (it runs `scripts/*.ts` directly) and pnpm 11 are required (`packageManager` pins the pnpm version for CI too).
 
-For hydration to work (rather than the browser discarding the server-rendered shadow root and re-rendering from scratch), load `@lit-labs/ssr-client/lit-element-hydrate-support.js` on the client **before** importing any `@driveforgelabs/forge-ui` component module.
+## TypeScript and lint
 
-If you're adding a new component: avoid calling browser-only APIs (`attachInternals`, `ResizeObserver`, `matchMedia`, `localStorage`, etc.) from the constructor or `render()` — those aren't implemented by the SSR DOM shim. Lifecycle methods (`connectedCallback`, `firstUpdated`, event listeners) are unaffected since Lit's SSR path never invokes them.
+- `tsconfig.base.json` turns on every strictness flag that exists: `strict`, `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `noPropertyAccessFromIndexSignature`, `noImplicitReturns`, `noImplicitOverride`, `noUnusedLocals`, `noUnusedParameters`, `erasableSyntaxOnly`, and more.
+- Three projects: `tsconfig.app.json` (our code, maximum strictness), `tsconfig.ui.json` (the unmodified stock shadcn files, which do not satisfy `exactOptionalPropertyTypes` and `noPropertyAccessFromIndexSignature`, so those two flags are off there only) and `tsconfig.node.json` (config, scripts, tests). Our code sees the stock components through the declarations emitted to `.tsbuild/`, so it is still checked against them.
+- `skipLibCheck` is on because some dependencies (Redux Toolkit, pulled in by Recharts) ship types that fail under the strict flags.
+- Biome handles lint, formatting and import order. Beyond the recommended rules it errors on leaked renders, nested ternaries, unused code, `any`, `console`, empty blocks and non-null assertions. `src/components/ui`, `src/lib` and `src/hooks` (stock files) are excluded.
 
-### React / Next.js
+## CI
 
-`@driveforgelabs/forge-ui-react` components render real Declarative Shadow DOM content during server rendering — no `dangerouslySetInnerHTML`, no separate API. This is powered by [`@lit-labs/ssr-react`](https://www.npmjs.com/package/@lit-labs/ssr-react), which patches `React.createElement` on the server to deep-render Lit components.
+`.github/workflows/ci.yml` runs on pushes to `main` and on pull requests: lint, typecheck, Playwright tests, registry build, a check that `registry.json` is committed up to date, and an upload of `public/r` as the `shadcn-registry` artifact. Nothing is published or deployed.
 
-Import its `enable-lit-ssr.js` module **once, as early as possible on the server** — before `react` or any `@driveforgelabs/forge-ui-react` component is imported anywhere in the module graph:
+## Docs
 
-```ts
-// instrumentation.ts (Next.js App Router — runs once at server startup)
-export async function register() {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    await import('@lit-labs/ssr-react/enable-lit-ssr.js');
-  }
-}
-```
-
-```tsx
-// any Server Component
-import { ForgeButton } from '@driveforgelabs/forge-ui-react';
-
-export default function Page() {
-  return <ForgeButton variant="primary">Save</ForgeButton>;
-}
-```
-
-The same `enable-lit-ssr.js` import is safe to leave in client bundles too — in the browser it's a no-op for `React.createElement` and instead just loads `@lit-labs/ssr-client/lit-element-hydrate-support.js`, so hydration picks up the server-rendered shadow root instead of discarding and re-rendering it.
-
-`@driveforgelabs/forge-ui-react` components are generated with a `'use client'` directive (they use React hooks internally to bind properties/events), so they render as Client Components — `enable-lit-ssr.js` still produces their real shadow-DOM content during that component's server render pass, same as any other Client Component's initial HTML.
-
-## Status
-
-`●` stable — v4.1.0
-
-## Related
-
-- [`headunit-os`](../headunit-os) — primary consumer of forge-ui components
-- [`tuneshare`](../tuneshare) — web UI built on forge-ui
-
-## License
-
-Apache-2.0
+- [`docs/consuming-from-mecano.md`](docs/consuming-from-mecano.md): adopting the library in a Tailwind v4 app (TanStack Start).
+- [`docs/component-parity.md`](docs/component-parity.md): how each former forge component maps to shadcn.

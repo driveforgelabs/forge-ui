@@ -1,46 +1,41 @@
+
+build/
+# Build outputs
+coverage/
+Desktop.ini
+dist/
+.DS_Store
+.env
+.env.development.local
+.env.local
+.env/*.local
+.env.production.local
+.env.test.local
+.idea/
+# IDEs and Editors
+# Local env files
+.next/
+*.njsproj
 # Node.js
 node_modules/
 npm-debug.log*
+*.ntvs*
+.nyc_output/
+# OS Files
+out/
+playwright-report/
+pnpm-debug.log*
+public/r/
+*.sln
+*.suo
+.svelte-kit/
+*.sw?
+# Testing
+test-results/
+Thumbs.db
+.tsbuild/
+*.tsbuildinfo
+# TypeScript
+.vscode/
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-
-# Build outputs
-dist/
-build/
-out/
-.svelte-kit/
-.next/
-storybook-static/
-
-# Testing
-coverage/
-.nyc_output/
-
-# IDEs and Editors
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# OS Files
-.DS_Store
-Thumbs.db
-Desktop.ini
-
-# Local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env/*.local
-
-# TypeScript
-*.tsbuildinfo
-
-# Codegen scratch output
-packages/react/.gen-tmp/

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, typecheck, build, e2e, registry
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: End-to-end tests
+        run: pnpm test
+
+      - name: Build shadcn registry
+        run: pnpm registry:build
+
+      - name: Registry is up to date
+        run: git diff --exit-code registry.json
+
+      - name: Check registry output
+        run: |
+          count=$(ls public/r/*.json | wc -l)
+          echo "registry files: $count"
+          test "$count" -ge 20
+          test -f public/r/registry.json
+          test -f public/r/clay-theme.json
+
+      - name: Upload registry
+        uses: actions/upload-artifact@v7
+        with:
+          name: shadcn-registry
+          path: public/r
+          if-no-files-found: error
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-traces
+          path: test-results
+          if-no-files-found: ignore

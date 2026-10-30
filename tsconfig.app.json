@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./.tsbuild/app.tsbuildinfo",
+    "types": ["vite/client"],
+    "paths": {
+      "@/components/ui/*": ["./.tsbuild/ui/src/components/ui/*"],
+      "@/lib/*": ["./.tsbuild/ui/src/lib/*"],
+      "@/hooks/*": ["./.tsbuild/ui/src/hooks/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["src/components/ui", "src/lib", "src/hooks"],
+  "references": [{ "path": "./tsconfig.ui.json" }]
+}
